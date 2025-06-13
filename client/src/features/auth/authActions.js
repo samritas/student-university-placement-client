@@ -1,8 +1,9 @@
 import axios from "axios";
-
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+} from "./authTypes";
 
 const loginRequest = () => ({
   type: LOGIN_REQUEST,
@@ -18,19 +19,22 @@ const loginFailure = (error) => ({
   payload: error,
 });
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const login = (username, password) => async (dispatch) => {
   dispatch(loginRequest());
+
   try {
-    const response = await axios.post("http://localhost:3000/admin/login", {
+    const response = await axios.post(`${BASE_URL}/admin/login`, {
       username,
       password,
     });
+
     const token = response.headers["x-auth-token"];
-    console.log(response);
+    localStorage.setItem("token", token);
+
     dispatch(loginSuccess(token));
-    // Optionally, you can save the token to localStorage or sessionStorage for persistence
-    localStorage.setItem("token", response?.data?.token);
   } catch (error) {
-    dispatch(loginFailure(error.message));
+    dispatch(loginFailure(error?.response?.data?.message || error.message));
   }
 };

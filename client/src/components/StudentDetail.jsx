@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -7,25 +7,25 @@ import {
   Button,
   Paper,
   TextField,
-} from '@mui/material';
+} from "@mui/material";
 
 const StudentPlacementDetail = () => {
   const [studentResults, setStudentResults] = useState({
-    studentName: '',
-    studentId: '',
-    history: '',
-    geography: '',
-    economics: '',
-    math: '',
-    biology: '',
-    physics: '',
-    chemistry: '',
+    studentName: "",
+    studentId: "",
+    history: "",
+    geography: "",
+    economics: "",
+    math: "",
+    biology: "",
+    physics: "",
+    chemistry: "",
   });
 
   const handleSubmitResults = (e) => {
     e.preventDefault();
     // Logic to submit student results
-    console.log('Student results submitted', studentResults);
+    console.log("Student results submitted", studentResults);
   };
 
   const handleInputChange = (e) => {
@@ -37,8 +37,8 @@ const StudentPlacementDetail = () => {
   };
 
   const [studentData, setStudentData] = useState({
-    university: { name: '', ranking: '' },
-    department: { name: '', ranking: '' },
+    university: { name: "", ranking: "" },
+    department: { name: "", ranking: "" },
   });
 
   // Simulated student data with rankings
@@ -48,8 +48,8 @@ const StudentPlacementDetail = () => {
     const fetchStudentData = async () => {
       // Example: Simulated student data with rankings
       const student = {
-        university: { name: 'Mekele University', ranking: '1st' },
-        department: { name: 'Computer Science', ranking: '1st' },
+        university: { name: "Mekele University", ranking: "1st" },
+        department: { name: "Computer Science", ranking: "1st" },
       };
       setStudentData(student);
     };
@@ -59,25 +59,30 @@ const StudentPlacementDetail = () => {
 
   const handleMakeUniversityPlacement = () => {
     // Logic to make university placement
-    console.log('Making university placement');
+    console.log("Making university placement");
   };
 
   const handleMakeDepartmentPlacement = () => {
     // Logic to make department placement
-    console.log('Making department placement');
+    console.log("Making department placement");
   };
 
   return (
-    <Container maxWidth="md" style={{ backgroundColor: '#f0f0f0', minHeight: '100vh', padding: '10px' }}>
+    <Container
+      maxWidth="md"
+      style={{
+        backgroundColor: "#f0f0f0",
+        minHeight: "100vh",
+        padding: "10px",
+      }}
+    >
       <Typography variant="h4" gutterBottom>
         Student Placement Admin Panel
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Box mb={2}>
-            <Typography variant="subtitle1">
-              Chosen University:
-            </Typography>
+            <Typography variant="subtitle1">Chosen University:</Typography>
             <Typography variant="body1">
               {studentData.university.name} ({studentData.university.ranking})
             </Typography>
@@ -85,16 +90,14 @@ const StudentPlacementDetail = () => {
         </Grid>
         <Grid item xs={12}>
           <Box mb={2}>
-            <Typography variant="subtitle1">
-              Chosen Department:
-            </Typography>
+            <Typography variant="subtitle1">Chosen Department:</Typography>
             <Typography variant="body1">
               {studentData.department.name} ({studentData.department.ranking})
             </Typography>
           </Box>
         </Grid>
-        <Grid item lg={12} style={{ padding: '40' }}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+        <Grid item lg={12} style={{ padding: "40" }}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h5" gutterBottom>
               Submit Student Results
             </Typography>
@@ -231,7 +234,11 @@ const StudentPlacementDetail = () => {
           <Button
             variant="contained"
             onClick={handleMakeUniversityPlacement}
-            style={{ backgroundColor: "#001f3f", color: "#ffffff", width: "100%" }}
+            style={{
+              backgroundColor: "#001f3f",
+              color: "#ffffff",
+              width: "100%",
+            }}
           >
             Make University Placement
           </Button>
@@ -240,7 +247,11 @@ const StudentPlacementDetail = () => {
           <Button
             variant="contained"
             onClick={handleMakeDepartmentPlacement}
-            style={{ backgroundColor: "#001f3f", color: "#ffffff", width: "100%" }}
+            style={{
+              backgroundColor: "#001f3f",
+              color: "#ffffff",
+              width: "100%",
+            }}
           >
             Make Department Placement
           </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Card,
@@ -7,73 +7,69 @@ import {
   Button,
   Link,
   Typography,
-} from '@mui/material';
-import { styled } from '@mui/system';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { login } from '../actions/authActions'; // Adjust the path based on your project structure
+} from "@mui/material";
+import { styled } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../features/auth/authActions";
 
 const AuthContainer = styled(Container)({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100vh',
-  width: '100vw',
-  background: 'linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)',
-  perspective: '1000px', // Add perspective to enable 3D effect
-  overflow: 'hidden',
-  padding: '0',
-  margin: '0',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
+  width: "100vw",
+  background: "linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)",
+  perspective: "1000px", 
+  overflow: "hidden",
+  padding: "0",
+  margin: "0",
 });
 
 const AuthCard = styled(Card)({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  maxWidth: '600px',
-  width: '100%',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  maxWidth: "600px",
+  width: "100%",
   opacity: 1,
   zIndex: 1,
 });
 
 const AuthCardContent = styled(CardContent)({
-  backfaceVisibility: 'hidden',
-  overflow: 'hidden',
+  backfaceVisibility: "hidden",
+  overflow: "hidden",
 });
 
 function Auth() {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isAdministrator, setIsAdministrator] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const history = useNavigate();
   const { token, error } = useSelector((state) => state.auth);
 
   const toggleForm = () => {
-    setIsForgotPassword(false); // Reset forgot password form state
+    setIsForgotPassword(false); 
     setIsAdministrator(!isAdministrator);
   };
 
   const handleForgotPassword = () => {
-    // Simulate sending confirmation email
-    alert('Confirmation email sent. Check your email for further instructions.');
-    setIsForgotPassword(true); // Directly show the reset password form
+    alert(
+      "Confirmation email sent. Check your email for further instructions."
+    );
+    setIsForgotPassword(true); 
   };
 
-  const handleResetPassword = () => {
-    // Simulate resetting password
-    alert('Password reset successfully. You can now sign in with your new password.');
-    setIsForgotPassword(false); // Back to sign-in form
-  };
 
   const handleAdminSignIn = async (event) => {
     event.preventDefault();
     await dispatch(login(username, password));
-    
+
     if (token) {
-      history('/list');
+      history("/list");
     }
   };
 
@@ -103,21 +99,29 @@ function Auth() {
                 fullWidth
                 variant="contained"
                 style={{
-                  background: 'linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)',
-                  border: 'none',
-                  color: 'white',
-                  marginTop: '16px',
+                  background:
+                    "linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)",
+                  border: "none",
+                  color: "white",
+                  marginTop: "16px",
                 }}
               >
                 Sign In
               </Button>
-              <Typography align="center" style={{ marginTop: '16px' }}>
-                <Link href="#" onClick={toggleForm} style={{ color: '#888' }}>
+              <Typography align="center" style={{ marginTop: "16px" }}>
+                <Link href="#" onClick={toggleForm} style={{ color: "#888" }}>
                   Administrator Sign In
                 </Link>
               </Typography>
-              <Typography align="center" style={{ marginTop: '8px', color: '#888' }}>
-                <Link href="#" onClick={handleForgotPassword} style={{ color: '#888' }}>
+              <Typography
+                align="center"
+                style={{ marginTop: "8px", color: "#888" }}
+              >
+                <Link
+                  href="#"
+                  onClick={handleForgotPassword}
+                  style={{ color: "#888" }}
+                >
                   Forgot Password?
                 </Link>
               </Typography>
@@ -151,22 +155,27 @@ function Auth() {
                   fullWidth
                   variant="contained"
                   style={{
-                    background: 'linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)',
-                    border: 'none',
-                    color: 'white',
-                    marginTop: '16px',
+                    background:
+                      "linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)",
+                    border: "none",
+                    color: "white",
+                    marginTop: "16px",
                   }}
                 >
                   Sign In
                 </Button>
               </form>
               {error && (
-                <Typography color="error" align="center" style={{ marginTop: '16px' }}>
+                <Typography
+                  color="error"
+                  align="center"
+                  style={{ marginTop: "16px" }}
+                >
                   {error}
                 </Typography>
               )}
-              <Typography align="center" style={{ marginTop: '16px' }}>
-                <Link href="#" onClick={toggleForm} style={{ color: '#888' }}>
+              <Typography align="center" style={{ marginTop: "16px" }}>
+                <Link href="#" onClick={toggleForm} style={{ color: "#888" }}>
                   Student Sign In
                 </Link>
               </Typography>
@@ -188,16 +197,21 @@ function Auth() {
                 variant="contained"
                 onClick={handleForgotPassword}
                 style={{
-                  background: 'linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)',
-                  border: 'none',
-                  color: 'white',
-                  marginTop: '16px',
+                  background:
+                    "linear-gradient(90deg, #001f3f 0%, #001f3f 50%, #001f3f 100%)",
+                  border: "none",
+                  color: "white",
+                  marginTop: "16px",
                 }}
               >
                 Submit
               </Button>
-              <Typography align="center" style={{ marginTop: '16px' }}>
-                <Link href="#" onClick={() => setIsForgotPassword(false)} style={{ color: '#888' }}>
+              <Typography align="center" style={{ marginTop: "16px" }}>
+                <Link
+                  href="#"
+                  onClick={() => setIsForgotPassword(false)}
+                  style={{ color: "#888" }}
+                >
                   Back to Sign In
                 </Link>
               </Typography>

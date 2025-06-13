@@ -11,50 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-
-const universities = [
-  "Addis Ababa University",
-  "Adama Science and Technology University",
-  "Arba Minch University",
-  "Bahir Dar University",
-  "Dilla University",
-  "Haramaya University",
-  "Hawassa University",
-  "Jimma University",
-  "Mekelle University",
-  "Wolaita Sodo University",
-  "Ambo University",
-  "Aksum University",
-  "Debre Berhan University",
-  "Debre Markos University",
-  "Mizan Tepi University",
-  "Semera University",
-  "Wachamo University",
-  "Wolkite University",
-  "Wollega University",
-  "Wollo University",
-  "Adigrat University",
-  "Dire Dawa University",
-  "Gondar University",
-  "Jijiga University",
-  "Mada Walabu University",
-  "Metu University",
-  "Asosa University",
-  "Bule Hora University",
-  "Debre Tabor University",
-  "Mettu University",
-  "Bonga University",
-  "Wachemo University",
-  "Kebri Dehar University",
-  "Welkite University",
-  "Mizan Tepi University",
-  "Woldia University",
-  "Assosa University",
-  "Kebri Dehar University",
-  "Samara University",
-  "Jigjiga University",
-  "Addis Ababa Science and Technology University",
-];
+import universities from "../data/universities";
 
 const UniversitySelection = () => {
   const navigate = useNavigate();
@@ -62,17 +19,17 @@ const UniversitySelection = () => {
   const initialUniversities =
     location.state?.selectedUniversities || Array(39).fill("");
 
-  const [selectedUniversities, setSelectedUniversities] =
-    useState(initialUniversities);
+  const [selectedUniversities, setSelectedUniversities] = useState(initialUniversities);
 
   const handleSelectionChange = (event, index) => {
-    const newSelectedUniversities = [...selectedUniversities];
-    newSelectedUniversities[index] = event.target.value;
-    setSelectedUniversities(newSelectedUniversities);
+    const updatedSelection = [...selectedUniversities];
+    updatedSelection[index] = event.target.value;
+    setSelectedUniversities(updatedSelection);
   };
 
   const handleSubmit = () => {
-    if (selectedUniversities.some((university) => university === "")) {
+    const hasEmpty = selectedUniversities.some((u) => u === "");
+    if (hasEmpty) {
       alert("Please fill all university rank spaces.");
     } else {
       navigate("/PlacementForm", { state: { selectedUniversities } });
@@ -80,7 +37,7 @@ const UniversitySelection = () => {
   };
 
   return (
-    <Container>
+    <Container sx={{ mt: 5 }}>
       <Typography variant="h4" gutterBottom>
         Select Universities by Rank
       </Typography>
@@ -95,6 +52,7 @@ const UniversitySelection = () => {
             const availableUniversities = universities.filter(
               (u) => !selectedUniversities.includes(u) || u === university
             );
+
             return (
               <Grid item xs={12} md={6} key={index}>
                 <FormControl fullWidth>

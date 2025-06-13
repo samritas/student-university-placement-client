@@ -48,7 +48,7 @@ function PasswordResetForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Password reset successfully. You can now sign in with your new password.');
-    history.push('/signin'); // Navigate back to sign-in page after successful reset
+    history.push('/signin'); 
   };
 
   return (

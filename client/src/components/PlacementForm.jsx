@@ -1,4 +1,10 @@
-import { Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -6,9 +12,10 @@ function PlacementInformationForm() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Extract state from location
-  const selectedUniversities = location.state?.selectedUniversities || Array(42).fill("");
-  const selectedDepartments = location.state?.selectedDepartments || Array(5).fill("");
+  const selectedUniversities =
+    location.state?.selectedUniversities || Array(42).fill("");
+  const selectedDepartments =
+    location.state?.selectedDepartments || Array(5).fill("");
 
   const [formData, setFormData] = useState({
     registrationNumber: "",
@@ -42,7 +49,6 @@ function PlacementInformationForm() {
       alert("Please fill all department rank spaces.");
     } else {
       console.log(formData);
-      // Proceed with form submission
     }
   };
 
@@ -93,11 +99,19 @@ function PlacementInformationForm() {
               value={formData.department}
               onChange={handleDepartmentChange}
             >
-              <MenuItem value="Engineering And Technology Fields">Engineering And Technology Fields</MenuItem>
-              <MenuItem value="Health Science Fields">Health Science Fields</MenuItem>
+              <MenuItem value="Engineering And Technology Fields">
+                Engineering And Technology Fields
+              </MenuItem>
+              <MenuItem value="Health Science Fields">
+                Health Science Fields
+              </MenuItem>
               <MenuItem value="Agriculture Fields">Agriculture Fields</MenuItem>
-              <MenuItem value="Business And Economics Fields">Business And Economics Fields</MenuItem>
-              <MenuItem value="Social Sciences And Humanities">Social Sciences And Humanities</MenuItem>
+              <MenuItem value="Business And Economics Fields">
+                Business And Economics Fields
+              </MenuItem>
+              <MenuItem value="Social Sciences And Humanities">
+                Social Sciences And Humanities
+              </MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -120,7 +134,7 @@ function PlacementInformationForm() {
             Select Universities
           </Button>
         </div>
-        
+
         <div style={{ marginBottom: "15px" }}>
           <label>
             <input

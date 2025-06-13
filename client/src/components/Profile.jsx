@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
-} from 'mdb-react-ui-kit';
-import { Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
-import { fetchStudentById } from '../actions/studentActions';
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Avatar,
+  Button,
+  Breadcrumbs,
+  Link as MuiLink,
+  Divider,
+  Box,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
+import { fetchStudentById } from "../features/students/studentActions";
 
 const ProfilePage = () => {
   const { studentId } = useParams();
@@ -24,108 +24,83 @@ const ProfilePage = () => {
     dispatch(fetchStudentById(studentId));
   }, [dispatch, studentId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography color="error">Error: {error}</Typography>;
 
   return (
-    <section style={{ backgroundColor: '#eee' }}>
-      <MDBContainer className='py-5'>
-        <MDBRow>
-          <MDBCol>
-            <MDBBreadcrumb className='bg-light rounded-3 p-3 mb-4'>
-              <MDBBreadcrumbItem active>Student Profile</MDBBreadcrumbItem>
-            </MDBBreadcrumb>
-          </MDBCol>
-        </MDBRow>
+    <Box sx={{ backgroundColor: "#eee", py: 5, minHeight: "100vh" }}>
+      <Container maxWidth="lg">
+        {/* Breadcrumb */}
+        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
+          <Typography color="text.primary">Student Profile</Typography>
+        </Breadcrumbs>
 
-        <MDBRow>
-          <MDBCol lg='4'>
-            <MDBCard className='mb-4'>
-              <MDBCardBody className='text-center'>
-                <MDBCardImage
-                  src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
-                  alt='avatar'
-                  className='rounded-circle'
-                  style={{ width: '150px' }}
-                  fluid
-                />
-                <p className='text-muted mb-1'>{student ? student.firstName : 'Student Name'}</p>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol lg='8'>
-            <MDBCard className='mb-4'>
-              <MDBCardBody>
-                <MDBRow>
-                  <MDBCol sm='3'>
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm='9'>
-                    <MDBCardText className='text-muted'>{student ? `${student.firstName} ${student.lastName}` : 'Full Name'}</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm='3'>
-                    <MDBCardText>Registration Number</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm='9'>
-                    <MDBCardText className='text-muted'>{student ? student.studentId : 'Registration Number'}</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm='3'>
-                    <MDBCardText>School Code</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm='9'>
-                    <MDBCardText className='text-muted'>{student ? student.schoolOrUniversityName : 'School Code'}</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm='3'>
-                    <MDBCardText>Mobile</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm='9'>
-                    <MDBCardText className='text-muted'>{student ? student.mobile : 'Mobile'}</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm='3'>
-                    <MDBCardText>Year</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm='9'>
-                    <MDBCardText className='text-muted'>{student ? student.year : 'Year'}</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-            <MDBRow>
+        <Grid container spacing={4}>
+          {/* Left Panel: Avatar and Name */}
+          <Grid item xs={12} md={4}>
+            <Paper elevation={3} sx={{ p: 3, textAlign: "center" }}>
+              <Avatar
+                alt="Student Avatar"
+                src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                sx={{ width: 150, height: 150, mx: "auto", mb: 2 }}
+              />
+              <Typography variant="h6" color="text.secondary">
+                {student ? student.firstName : "Student Name"}
+              </Typography>
+            </Paper>
+          </Grid>
+
+          {/* Right Panel: Student Details */}
+          <Grid item xs={12} md={8}>
+            <Paper elevation={3} sx={{ p: 3 }}>
+              <DetailRow label="Full Name" value={student ? `${student.firstName} ${student.lastName}` : "Full Name"} />
+              <Divider sx={{ my: 1 }} />
+              <DetailRow label="Registration Number" value={student ? student.studentId : "Registration Number"} />
+              <Divider sx={{ my: 1 }} />
+              <DetailRow label="School Code" value={student ? student.schoolOrUniversityName : "School Code"} />
+              <Divider sx={{ my: 1 }} />
+              <DetailRow label="Mobile" value={student ? student.mobile : "Mobile"} />
+              <Divider sx={{ my: 1 }} />
+              <DetailRow label="Year" value={student ? student.year : "Year"} />
+            </Paper>
+
+            <Box mt={3} display="flex" justifyContent="center">
               <Button
-                variant='contained'
-                style={{ backgroundColor: '#001f3f', width: '300px' }}
+                variant="contained"
+                sx={{ backgroundColor: "#001f3f", width: 300 }}
                 component={Link}
-                to='/studentDetail'
+                to="/studentDetail"
               >
                 Detail
               </Button>
-            </MDBRow>
-            <MDBCard className='mt-4'>
-              <MDBCardBody>
-                <MDBCardText>
-                  {student && student.universityPlacement
-                    ? `University Placement: ${student.universityPlacement}`
-                    : 'The placement will be displayed here.'}
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </section>
+            </Box>
+
+            <Paper elevation={3} sx={{ p: 2, mt: 4 }}>
+              <Typography>
+                {student && student.universityPlacement
+                  ? `University Placement: ${student.universityPlacement}`
+                  : "The placement will be displayed here."}
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
+
+// Helper component to display label and value in a row
+const DetailRow = ({ label, value }) => (
+  <Grid container spacing={2} alignItems="center">
+    <Grid item xs={4} sm={3}>
+      <Typography variant="body1" fontWeight="bold">
+        {label}
+      </Typography>
+    </Grid>
+    <Grid item xs={8} sm={9}>
+      <Typography color="text.secondary">{value}</Typography>
+    </Grid>
+  </Grid>
+);
 
 export default ProfilePage;
